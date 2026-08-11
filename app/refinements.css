@@ -1,0 +1,51 @@
+/* Latest hierarchy refinements. Kept separate while the original system is stabilized. */
+:root { --max: 1440px; }
+.container { width: min(calc(100% - 48px), var(--max)); }
+
+.hero { min-height: calc(100svh - 76px); display: flex; align-items: center; padding: 56px 0; }
+.hero h1 { font-size: clamp(3.15rem, 5.8vw, 5.9rem); }
+.hero-intro { max-width: 440px; font-size: 16px; }
+.terminal-body { min-height: 310px; }
+
+.section h2 { font-size: clamp(2.5rem, 4.4vw, 4.55rem); }
+.section-heading:has(> h2:only-child) { display: block; }
+.section-heading:has(> h2:only-child) h2 { white-space: nowrap; }
+.experience h3 { font-size: 27px; }
+.experience-summary { font-size: 17px; line-height: 1.5; }
+.experience ul { font-size: 16px; line-height: 1.5; }
+.project-copy h3 { font-size: 33px; }
+.project-copy > p:not(.eyebrow), .project-card-content > p { font-size: 17px; }
+.article-row h3, .article-row h2 { font-size: 28px; }
+.article-row p:not(.eyebrow) { font-size: 17px; }
+
+.about-education strong { max-width: none; white-space: nowrap; font-size: 19px; }
+.about-education h3 { font-size: 25px; }
+
+.skill-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 34px; border: 0; background: transparent; align-items: start; }
+.skill-group, .skill-group:last-child { min-height: 0; padding: 18px 0; border: 0; border-top: 1px solid var(--border); background: transparent; }
+.skill-group:hover { background: transparent; }
+.skill-index { margin-bottom: 30px; }
+.skill-group h3 { margin-bottom: 20px; font-size: 21px; }
+.skill-group ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.skill-group li { padding: 0; color: var(--muted); font: 16px/1.35 var(--sans); letter-spacing: -.015em; }
+.skill-group li:hover { color: var(--ink); }
+
+@media (max-width: 980px) {
+  .skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .skill-group { min-height: 0; }
+  .section-heading:has(> h2:only-child) h2 { white-space: normal; }
+}
+
+@media (max-width: 800px) {
+  .container { width: min(calc(100% - 32px), var(--max)); }
+  .hero { min-height: auto; padding: 54px 0 62px; }
+  .hero h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .hero-intro { font-size: 16px; }
+  .terminal-body { min-height: 265px; }
+  .skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skill-group { min-height: 0; padding: 18px 0; }
+  .skill-index { margin-bottom: 27px; }
+  .skill-group h3 { font-size: 18px; }
+  .skill-group li { font-size: 15px; }
+  .section-heading:has(> h2:only-child) h2 { white-space: normal; }
+}

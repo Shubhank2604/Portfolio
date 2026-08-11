@@ -1,0 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
+import type { Project } from "@/data/projects";
+import { ArrowRight, ArrowUpRight } from "@/components/ui/Icons";
+export function ProjectCard({ project }: { project: Project }) { return <article className="project-card"><Link href={`/projects/${project.slug}/`} className="project-art">{project.image && <Image src={project.image} alt={project.imageAlt ?? `${project.title} project visual`} fill sizes="(max-width: 800px) 100vw, 50vw" />}<span>{project.categories[0]}</span><div className="art-lines"><i /><i /><i /></div></Link><div className="project-card-content"><p className="eyebrow">{project.eyebrow}</p><h2><Link href={`/projects/${project.slug}/`}>{project.title}</Link></h2><p>{project.description}</p><div className="tags">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div><div className="project-card-links"><Link href={`/projects/${project.slug}/`}>Case study <ArrowRight /></Link>{project.github && <a href={project.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight /></a>}</div></div></article>; }
