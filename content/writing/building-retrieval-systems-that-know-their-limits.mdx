@@ -1,12 +1,93 @@
-export const metadata = {
-  title: "Building retrieval systems that know their limits",
-  description: "A draft note on separating retrieval, deterministic tools, and generated explanations.",
-};
+Retrieval-augmented generation demos often stop at the moment an answer looks plausible. I wanted FinSight AI to answer a harder question: **did the retriever actually find the evidence the answer needed?**
 
-## A useful boundary
+That led me to build a deterministic retrieval benchmark and wire it into CI. The most useful result was not a high score. It was that BM25 beat my hybrid retriever.
 
-A retrieval product becomes more dependable when it makes evidence, computation, and interpretation distinguishable.
+## The system I was testing
 
-## What to measure
+FinSight combines three retrieval paths:
 
-Before publishing, add a real evaluation set, error analysis, and source-specific observations.
+1. dense search over Qdrant;
+2. sparse BM25 search; and
+3. Reciprocal Rank Fusion (RRF) over both rankings.
+
+The architecture sounds reasonable. Dense retrieval should capture meaning, BM25 should preserve exact financial terminology, and fusion should benefit from both. But architecture diagrams are hypotheses. I needed a repeatable way to test the hypothesis.
+
+## A benchmark that can run anywhere
+
+I created a small, redistributable corpus of 18 synthetic financial passages and 18 human-authored questions. The cases cover filings, brokerage statements, tax rules, investor presentations, mortgages, and retirement planning.
+
+Each question points to one or more relevant chunk IDs. The evaluation executes the production retrieval code and records:
+
+- Precision@K;
+- Recall@K;
+- Hit Rate@K;
+- Mean Reciprocal Rank;
+- nDCG@K; and
+- p50 and p95 retrieval latency.
+
+The corpus is intentionally synthetic. That makes it stable, free of private financial documents, and safe to run in a public repository. It does **not** make it representative of every production document. The benchmark is a regression guard and a diagnostic tool, not a universal accuracy claim.
+
+## Removing credentials from the quality gate
+
+A CI benchmark cannot depend on my Gemini key or a network call that may change behavior over time. I added a deterministic local-hash embedding provider and an in-memory Qdrant path, then made sure the existing production retriever—not a simplified test double—handled the run.
+
+The command is deliberately boring:
+
+```bash
+python eval_retrieval.py \
+  --top-k 3 \
+  --output evals/results/latest.json \
+  --min-hybrid-recall 0.90
+```
+
+That command produces a versioned JSON report with environment metadata, aggregate metrics, latency percentiles, and every per-query ranking. GitHub Actions runs it with the complete test suite on each change.
+
+## The result
+
+At K=3, the first baseline looked like this:
+
+| Mode | Precision@3 | Recall@3 | Hit Rate@3 | MRR@3 | nDCG@3 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Dense local hash | 0.315 | 0.944 | 0.944 | 0.861 | 0.883 |
+| BM25 | 0.333 | 1.000 | 1.000 | 0.972 | 0.979 |
+| Hybrid RRF | 0.315 | 0.944 | 0.944 | 0.889 | 0.903 |
+
+BM25 recovered every labeled passage. Dense and hybrid retrieval both missed the brokerage-allocation case.
+
+It would have been easy to report only the 0.944 hybrid recall and call it strong. That would miss the engineering point: on this deliberately lexical corpus, the simpler sparse retriever was better on every ranking metric.
+
+## Why fusion did not save the result
+
+RRF combines ranks; it does not repair the representations that produced those ranks. The local hash embedding is deterministic and convenient for CI, but it is only a proxy for a semantic embedding model. When its ranking for a query is weak, fusion can give that weak signal enough influence to displace the correct BM25 result from the top three.
+
+This changed how I think about “hybrid is better.” Hybrid retrieval is not a feature that guarantees quality. It is a parameterized decision that must earn its place against component baselines.
+
+The next experiment is not to tune until the score turns green. It is to compare local-hash and Gemini embeddings on the same cases, inspect rank movement, and test whether different fusion weights improve held-out queries rather than only the development set.
+
+## Separating retrieval from generation
+
+This benchmark measures evidence selection, not answer correctness. A retrieved passage can still be misread, cited incorrectly, or used in a numerically inconsistent answer.
+
+I keep those layers separate because they fail differently:
+
+- retrieval asks whether the necessary evidence was found;
+- citation evaluation asks whether claims point to the right evidence;
+- groundedness asks whether the evidence supports each claim;
+- numerical checks ask whether computations are consistent; and
+- abstention evaluation asks whether the system refuses when evidence is insufficient.
+
+One “LLM accuracy” number would blur those failure modes and make the system harder to improve.
+
+## What I would add next
+
+The current benchmark is useful, but small. The next evaluation layers are:
+
+1. an independently reviewed, licensed real-document corpus;
+2. a held-out split before retrieval tuning;
+3. comparisons across embedding models and fusion parameters;
+4. citation precision, claim support, abstention accuracy, and numerical consistency; and
+5. end-to-end latency, token usage, and provider cost.
+
+The main lesson was simple: an evaluation should be capable of disagreeing with the architecture. If it can only produce a number that validates the system, it is marketing—not engineering.
+
+The full benchmark, report, tests, and failure analysis are available in the [FinSight AI repository](https://github.com/Shubhank2604/FinSight-AI).

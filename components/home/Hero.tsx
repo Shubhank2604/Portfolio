@@ -3,4 +3,48 @@ import { profile } from "@/data/profile";
 import { ArrowRight, ArrowUpRight } from "@/components/ui/Icons";
 import { Container } from "@/components/ui/Container";
 import { Terminal } from "./Terminal";
-export function Hero() { return <section className="hero"><Container className="hero-grid"><div className="hero-copy"><p className="eyebrow">Hi, I&apos;m Shubhank.</p><h1>Software engineer<br />building systems<br /><em>that hold up.</em></h1><p className="hero-intro">{profile.intro}</p><div className="hero-actions"><Link className="button button-primary" href="/#selected-work">Explore my work <ArrowRight /></Link><Link className="button button-secondary" href="/resume.pdf" target="_blank">Resume <ArrowUpRight /></Link></div></div><Terminal /></Container></section>; }
+
+export function Hero() {
+  return (
+    <section className="hero">
+      <Container className="hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">{profile.role}</p>
+          <h1>
+            Building systems
+            <br />
+            with evidence,
+            <br />
+            <em>not adjectives.</em>
+          </h1>
+          <p className="hero-intro">{profile.intro}</p>
+          <p className="hero-context">
+            MS Computer Science at the University of Florida · Graduating May 2027
+          </p>
+          <div className="hero-actions">
+            <Link className="button button-primary" href="/#selected-work">
+              Explore selected work <ArrowRight />
+            </Link>
+            <a
+              className="button button-secondary"
+              href={profile.social.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub <ArrowUpRight />
+            </a>
+          </div>
+          <div className="proof-strip" aria-label="Engineering impact">
+            {profile.proof.map((item) => (
+              <div key={item.label}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Terminal />
+      </Container>
+    </section>
+  );
+}

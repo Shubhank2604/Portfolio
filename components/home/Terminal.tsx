@@ -1,4 +1,54 @@
 "use client";
+
 import { useEffect, useState, type CSSProperties } from "react";
-const lines = ["software_engineer", "", "shubhank@portfolio:~$ interests", "├── distributed-systems", "├── backend-engineering", "├── systems", "└── ai-infrastructure", "", "shubhank@portfolio:~$ status", "building · learning · writing_"];
-export function Terminal() { const [ready, setReady] = useState(false); useEffect(() => { const timer = window.setTimeout(() => setReady(true), 100); return () => window.clearTimeout(timer); }, []); return <div className={`terminal ${ready ? "terminal-ready" : ""}`} aria-label="Terminal introduction"><div className="terminal-bar"><span /><span /><span /><p>shubhank@dev:~$</p></div><div className="terminal-body"><p className="terminal-command">shubhank@portfolio:~$ whoami</p>{lines.map((line, index) => <p className="terminal-line" style={{ "--line": index } as CSSProperties} key={`${line}-${index}`}>{line || " "}</p>)}<span className="cursor" aria-hidden="true">█</span></div></div>; }
+
+const lines = [
+  "software_engineer",
+  "",
+  "shubhank@portfolio:~$ focus",
+  "├── backend-systems",
+  "├── compiler-infrastructure",
+  "├── distributed-reliability",
+  "└── evaluated-ai",
+  "",
+  "shubhank@portfolio:~$ principle",
+  "measure → inspect → improve_",
+];
+
+export function Terminal() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setReady(true), 100);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  return (
+    <div
+      className={`terminal ${ready ? "terminal-ready" : ""}`}
+      aria-label="Engineering focus"
+    >
+      <div className="terminal-bar">
+        <span />
+        <span />
+        <span />
+        <p>shubhank@dev:~$</p>
+      </div>
+      <div className="terminal-body">
+        <p className="terminal-command">shubhank@portfolio:~$ whoami</p>
+        {lines.map((line, index) => (
+          <p
+            className="terminal-line"
+            style={{ "--line": index } as CSSProperties}
+            key={`${line}-${index}`}
+          >
+            {line || " "}
+          </p>
+        ))}
+        <span className="cursor" aria-hidden="true">
+          █
+        </span>
+      </div>
+    </div>
+  );
+}
