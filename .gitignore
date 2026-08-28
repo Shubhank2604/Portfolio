@@ -25,6 +25,7 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Local planning notes; they are not part of the deployed application
+# Local planning and framework-generated agent notes
 requirements.md
-README.md
+AGENTS.md
+CLAUDE.md

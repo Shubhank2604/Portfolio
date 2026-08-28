@@ -11,6 +11,7 @@ export interface Experience {
   logo?: string;
   image?: string;
   link?: string;
+  featured?: boolean;
 }
 
 export const experiences: Experience[] = [
@@ -20,10 +21,12 @@ export const experiences: Experience[] = [
     location: "Natick, MA",
     startDate: "May 2026",
     endDate: "Aug 2026",
-    summary: "MATLAB Compiler infrastructure.",
+    summary: "Compiler infrastructure inside the production MATLAB Compiler codebase.",
+    featured: true,
     highlights: [
-      "Built a data-driven manifest framework for compiler artifacts and dependencies.",
-      "Extended safe MATLAB-to-C++ transfer and dependency collection with RAII ownership.",
+      "Designed a unified JSON artifact manifest as the source of truth for compiler outputs and dependencies.",
+      "Re-architected section integration into a loosely coupled, data-driven C++ framework, cutting future additions from roughly an hour to under a minute.",
+      "Extended safe MATLAB-to-C++ data transfer and dependency collection with explicit RAII ownership.",
     ],
     technologies: ["C++", "MATLAB", "Compiler Systems", "Serialization"],
     metrics: [{ value: "< 1 min", label: "future section integration, down from ~1 hour" }],
@@ -34,10 +37,12 @@ export const experiences: Experience[] = [
     location: "Bengaluru, India",
     startDate: "Jul 2022",
     endDate: "Jun 2025",
-    summary: "Capital-markets analytics and end-of-day processing services.",
+    summary: "Capital-markets analytics and end-of-day risk-processing services.",
+    featured: true,
     highlights: [
-      "Improved SQL access patterns and distributed caching for high-volume analytics workflows.",
-      "Automated validation and migrated 11 services to Java 17 and Spring Boot 3.3.",
+      "Built high-throughput services that processed roughly 200K records per major dataset and fed C++ calculations for VaR, DV01/DV02, and OAS.",
+      "Replaced repeated database lookups with 20+ distributed-cache datasets, providing 7× faster in-memory access.",
+      "Automated overnight validation and migrated 11 services to Java 17 and Spring Boot 3.3 without downtime.",
     ],
     technologies: ["Java", "Spring Boot", "SQL", "Redis", "C++"],
     metrics: [
@@ -52,8 +57,12 @@ export const experiences: Experience[] = [
     location: "Remote",
     startDate: "May 2022",
     endDate: "Jul 2022",
-    summary: "Inventory and backend services.",
-    highlights: ["Improved an allocation workflow from roughly 15 minutes to under 5 minutes.", "Contributed backend service and MongoDB work alongside test coverage."],
+    summary: "Inventory allocation and backend services for a shared-mobility platform.",
+    featured: true,
+    highlights: [
+      "Improved an operational allocation workflow from roughly 15 minutes to under 5 minutes.",
+      "Delivered backend service and MongoDB changes alongside automated test coverage.",
+    ],
     technologies: ["Node.js", "MongoDB", "Backend Services", "Testing"],
   },
   {
