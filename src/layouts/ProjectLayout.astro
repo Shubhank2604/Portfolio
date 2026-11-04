@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+interface Props { entry: CollectionEntry<'projects'>; }
+const { entry } = Astro.props;
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+  <header class="detail-header"><a class="back-link" href="/projects/">← All projects</a><h1>{entry.data.title}</h1><p>{entry.data.summary}</p><div class="detail-meta"><span>{entry.data.category}</span><span>{entry.data.status}</span><a href={entry.data.repo}>GitHub ↗</a>{entry.data.demo && <a href={entry.data.demo}>Live demo ↗</a>}</div><p class="detail-stack">{entry.data.technologies.join(' · ')}</p></header>
+  <div class="reading"><div class="prose"><slot/></div></div>
+  <nav class="next-reading" aria-label="Project navigation"><a href="/projects/">← Explore all projects</a></nav>
+</BaseLayout>

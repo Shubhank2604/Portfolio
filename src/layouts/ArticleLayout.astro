@@ -1,0 +1,12 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import { SITE } from '@/site.config';
+interface Props { entry: CollectionEntry<'writing'>; }
+const { entry } = Astro.props;
+---
+<BaseLayout title={entry.data.title} description={entry.data.description} article date={entry.data.dateISO}>
+  <header class="detail-header"><a class="back-link" href="/writing/">← All writing</a><h1>{entry.data.title}</h1><p>{entry.data.description}</p><div class="detail-meta"><span>{SITE.name}</span><span>{entry.data.date}</span><span>{entry.data.category}</span><span>{entry.data.readingTime} read</span></div></header>
+  <div class="reading">{entry.data.historical && <aside class="historical-note">Historical experiment, August 2026. Provider references, commands, and results below describe that snapshot of FinSight. The current project has since moved to OpenAI and local MiniLM embeddings. <a href="/projects/finsight-ai/">Current case study →</a></aside>}<div class="prose"><slot/></div></div>
+  <nav class="next-reading" aria-label="Article navigation"><a href="/writing/">← All engineering notes</a></nav>
+</BaseLayout>

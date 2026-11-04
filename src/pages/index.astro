@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ExperienceRow from '@/components/ExperienceRow.astro';
+import ProjectRow from '@/components/ProjectRow.astro';
+import EducationRow from '@/components/EducationRow.astro';
+import { SITE } from '@/site.config';
+import { experiences } from '@/data/experience';
+import { education } from '@/data/education';
+const allProjects = await getCollection('projects', ({ data }) => data.published);
+const selected = allProjects.filter(entry => entry.data.featuredOrder !== undefined).sort((a,b) => a.data.featuredOrder! - b.data.featuredOrder!);
+const articles = await getCollection('writing', ({ data }) => data.published);
+---
+<BaseLayout title={SITE.name}>
+  <section class="hero">
+    <p class="intro-label">Gainesville, Florida</p>
+    <h1>{SITE.name}</h1><p class="hero-role">{SITE.role}</p><p class="hero-description">{SITE.intro}</p>
+    <div class="hero-links">{SITE.social.map(link => <a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a>)}<a href={`mailto:${SITE.email}`}>Email <span aria-hidden="true">↗</span></a>{SITE.resume && <a href={SITE.resume} target="_blank" rel="noopener noreferrer">Resume ↗</a>}</div>
+  </section>
+  <section id="experience" class="home-section"><SectionHeading title="Experience" href="/about/#career" linkLabel="More detail"/>{experiences.map(entry => <ExperienceRow entry={entry}/>)}</section>
+  <section id="selected-work" class="home-section"><SectionHeading title="Selected projects" count={allProjects.length} href="/projects/" linkLabel="View all projects"/>{selected.map(entry => <ProjectRow entry={entry}/>)}</section>
+  <section id="education" class="home-section"><SectionHeading title="Education"/>{education.map(entry => <EducationRow entry={entry}/>)}</section>
+  {articles.length > 0 && <section class="home-section"><SectionHeading title="Engineering notes" href="/writing/" linkLabel="All writing"/>{articles.map(entry => <a class="writing-row" href={`/writing/${entry.id}/`}><div><h3>{entry.data.title}</h3><p>{entry.data.description}</p></div><span class="entry-meta">{entry.data.date}</span></a>)}</section>}
+</BaseLayout>

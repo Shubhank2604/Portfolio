@@ -1,0 +1,13 @@
+---
+import { SITE } from '@/site.config';
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {new Date().getFullYear()} {SITE.name}</p>
+    <nav aria-label="Contact and social links">
+      <a href={`mailto:${SITE.email}`}>Email</a>
+      {SITE.social.map(link => <a href={link.href} rel="me">{link.label}</a>)}
+      {SITE.resume && <a href={SITE.resume} target="_blank" rel="noopener noreferrer">Resume ↗</a>}
+    </nav>
+  </div>
+</footer>

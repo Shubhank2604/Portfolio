@@ -1,0 +1,15 @@
+---
+import type { Experience } from '@/data/experience';
+interface Props { entry: Experience; expanded?: boolean; }
+const { entry, expanded = false } = Astro.props;
+---
+<article class:list={['experience-row', { 'is-expanded': expanded }]} id={expanded ? entry.id : undefined}>
+  <div class="row-title"><h3>{entry.company}</h3><span>{entry.role}</span></div>
+  <p class="row-date">{entry.period}</p>
+  {entry.summary && <p class="row-summary">{entry.summary}</p>}
+  {expanded && <>
+    <p class="row-location">{entry.location}</p>
+    {entry.highlights && <ul class="detail-highlights">{entry.highlights.map(item => <li>{item}</li>)}</ul>}
+    {entry.technologies.length > 0 && <p class="row-stack">{entry.technologies.join(' · ')}</p>}
+  </>}
+</article>

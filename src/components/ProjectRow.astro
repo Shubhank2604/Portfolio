@@ -1,0 +1,10 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { entry: CollectionEntry<'projects'>; }
+const { entry } = Astro.props;
+---
+<a class="project-row" href={`/projects/${entry.id}/`}>
+  <div><h3>{entry.data.title}</h3><p>{entry.data.summary}</p></div>
+  <span class="project-row-stack">{entry.data.technologies.slice(0, 2).join(' / ')}</span>
+  <span class="row-arrow" aria-hidden="true">↗</span>
+</a>
