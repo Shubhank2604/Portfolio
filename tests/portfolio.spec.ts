@@ -42,7 +42,7 @@ test('content and accessibility on the principal routes', async ({ page }) => {
     expect(results.violations).toEqual([]);
   }
   await page.goto('/');
-  await expect(page.locator('.experience-row')).toHaveCount(6);
+  await expect(page.locator('.experience-row')).toHaveCount(7);
   await expect(page.locator('.project-row')).toHaveCount(5);
   await expect(page.locator('a[href="/resume.pdf"]')).toHaveCount(0);
 });

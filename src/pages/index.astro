@@ -19,7 +19,7 @@ const articles = await getCollection('writing', ({ data }) => data.published);
     <div class="hero-links">{SITE.social.map(link => <a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a>)}<a href={`mailto:${SITE.email}`}>Email <span aria-hidden="true">↗</span></a>{SITE.resume && <a href={SITE.resume} target="_blank" rel="noopener noreferrer">Resume ↗</a>}</div>
   </section>
   <section id="experience" class="home-section"><SectionHeading title="Experience" href="/about/#career" linkLabel="More detail"/>{experiences.map(entry => <ExperienceRow entry={entry}/>)}</section>
-  <section id="selected-work" class="home-section"><SectionHeading title="Selected projects" count={allProjects.length} href="/projects/" linkLabel="View all projects"/>{selected.map(entry => <ProjectRow entry={entry}/>)}</section>
+  <section id="selected-work" class="home-section"><SectionHeading title="Selected projects" href="/projects/" linkLabel="View all projects"/>{selected.map(entry => <ProjectRow entry={entry}/>)}</section>
   <section id="education" class="home-section"><SectionHeading title="Education"/>{education.map(entry => <EducationRow entry={entry}/>)}</section>
   {articles.length > 0 && <section class="home-section"><SectionHeading title="Engineering notes" href="/writing/" linkLabel="All writing"/>{articles.map(entry => <a class="writing-row" href={`/writing/${entry.id}/`}><div><h3>{entry.data.title}</h3><p>{entry.data.description}</p></div><span class="entry-meta">{entry.data.date}</span></a>)}</section>}
 </BaseLayout>

@@ -1,8 +1,8 @@
 ---
-interface Props { title: string; count?: number; href?: string; linkLabel?: string; }
-const { title, count, href, linkLabel } = Astro.props;
+interface Props { title: string; href?: string; linkLabel?: string; }
+const { title, href, linkLabel } = Astro.props;
 ---
 <div class="section-heading">
-  <h2>{title}{typeof count === 'number' && <span class="section-count">{String(count).padStart(2, '0')}</span>}</h2>
+  <h2>{title}</h2>
   {href && <a class="small-link" href={href}>{linkLabel} <span aria-hidden="true">↗</span></a>}
 </div>

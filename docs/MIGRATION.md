@@ -11,7 +11,7 @@ The migration uses `migration/astro-portfolio`. The original implementation is r
 - Astro 7 static output, TypeScript, Tailwind CSS v4, typed content collections, and MDX.
 - Adapted BracoZS's starter architecture and token system; required MIT notice preserved.
 - Warm light theme, 1024px content width, compact rows, responsive navigation, persisted dark theme, visible focus, reduced-motion support.
-- Six historical roles, five selected project rows, ten case studies, two education records, one preserved published article.
+- Seven professional roles, five selected project rows, ten case studies, two education records, one preserved published article.
 - Skills and recognition moved to About. Removed terminal, proof counters, Formspree/backend contact flow, obsolete Next.js components, and React dependencies.
 - Shared metadata, canonical URLs, personalized PNG social preview, favicon, sitemap, robots, and conditional real-resume links.
 
@@ -40,7 +40,7 @@ The migration uses `migration/astro-portfolio`. The original implementation is r
 
 Projects: ContextInvariant; FinSight AI; Parking Management System; CafeteriaBuddy; Splitwise / Expense Sharing API; Text-to-SQL Explorer; OAR Data Assistant; Text Summarization with Transformers; Music Genre Classification & Recommendation; Bengaluru House Price Prediction.
 
-Experience: MathWorks; Wells Fargo; Bounce; Placewit; Selegic Inc.; Scaler. Dates and roles follow supplied confirmed history. Detailed responsibilities for MathWorks and Wells Fargo remain available on About.
+Experience: University of Florida · Assessment & Research; MathWorks; Wells Fargo; Bounce; Placewit; Selegic Inc.; Scaler. UF's official OPS Student Analyst Intern title is confirmed by the signed offer, and its Sep 2025–Present period is supported by Shubhank's UF-job resume. Detailed responsibilities remain available on About.
 
 Education: University of Florida (Aug 2025–May 2027) and NIT Durgapur (Jul 2018–May 2022).
 
@@ -48,10 +48,11 @@ Writing: the original BM25 note retains its body, table, code, month, and slug. 
 
 ## Content needing confirmation
 
-- UF GPA: the old record says 3.72; the brief refers to a newer 3.8. Omitted until current evidence is supplied.
-- UF/OAR role: exact title, dates, and completed milestones remain unconfirmed. Not published as employment.
+- UF GPA is reconciled to 3.8/4.0 using the latest general resume.
+- UF/OAR work is included with its verified title, period, and public-safe workflow description; no private operational data or employment documents are published.
 - No actual resume PDF exists in this checkout. Resume links are omitted until `public/resume.pdf` is supplied.
-- Selegic technical responsibilities, Scaler article URLs, further awards/certifications, and LLM gateway source are pending. No invented claims are used.
+- Selegic's Java/Spring proof of concept is confirmed in Shubhank's older resume. Scaler remains freelance writing; no separate mentoring role is inferred. Placewit's 100+ mentoring figure was explicitly confirmed by Shubhank.
+- Gateway replacement is deferred at the user's direction. The three clearly labeled notebook experiments remain secondary entries, after the stronger seven projects. Scaler article URLs and further awards/certifications remain optional future additions.
 
 ## Verification
 
@@ -69,6 +70,15 @@ Local validation results on 2026-11-03:
 - Browser suite: 11 tests passed, including seven viewport widths, light/dark accessibility, mobile keyboard controls, project filters, nested refresh, 404, and static rendering without JavaScript.
 - Original article body comparison passed after normalizing line endings.
 - Desktop/mobile homepage and desktop project screenshots captured and visually reviewed in `.qa/`.
+
+Pre-merge content review on 2026-11-04:
+
+- Added OAR as the seventh role using the signed offer and Shubhank's own UF-job resume.
+- Corrected Bounce and Selegic from explicit resume descriptions; retained Placewit's directly confirmed mentoring scope and Scaler's writing role.
+- Reconciled UF GPA and MathWorks/Wells Fargo metrics against the latest general resume.
+- Removed the selected-project counter and its unused presentation code.
+- Re-ran `npm run check` and all 11 browser tests successfully; regenerated and inspected desktop/mobile screenshots.
+- Hosted preview requests still redirect to Vercel authentication. Authenticated visual sign-off remains required before production; local review does not substitute for that sign-off.
 
 ## Deployment handoff
 
