@@ -4,4 +4,4 @@ export const skills = [
   { title: 'Data', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Qdrant', 'ChromaDB'] },
   { title: 'AI systems', items: ['RAG', 'Embeddings', 'Retrieval evaluation', 'PyTorch', 'Hugging Face', 'LangChain'] },
 ];
-export const interests = ['Distributed systems', 'Compiler infrastructure', 'Databases & reliability', 'LLM infrastructure'];
+export const interests = ['Distributed Systems', 'Agentic Systems', 'Databases & Reliability', 'AI Infrastructure', 'Compilers', 'Low-Latency Systems', 'Competitive Programming (Codeforces, CodeChef, LeetCode)'];
