@@ -5,8 +5,8 @@ export const SITE = {
   initials: 'SC.',
   role: 'Software Engineer · Backend, Systems & AI',
   email: 'shubhankchandak@gmail.com',
-  description: 'Software engineer building backend infrastructure, compiler tooling, and AI systems. Previously at Wells Fargo and MathWorks. M.S. Computer Science at the University of Florida.',
-  intro: 'Building reliable backend infrastructure and AI systems. Previously at Wells Fargo and MathWorks. M.S. Computer Science at the University of Florida.',
+  description: 'Building scalable backend infrastructure and AI systems. Previously at MathWorks and Wells Fargo. M.S. in Computer Science at the University of Florida.',
+  intro: 'Building scalable backend infrastructure and AI systems. Previously at MathWorks and Wells Fargo. M.S. in Computer Science at UF.',
   locale: 'en',
   resume: existsSync(new URL('../public/resume.pdf', import.meta.url)) ? '/resume.pdf' : undefined,
   social: [
