@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+const projects = (await getCollection('projects', ({ data }) => data.published)).sort((a,b) => a.data.order-b.data.order);
+const categories = ['All', ...new Set(projects.map(entry => entry.data.category))];
+---
+<BaseLayout title="Projects" description="Backend systems, AI infrastructure, and machine-learning experiments by Shubhank Chandak.">
+  <header class="page-heading"><h1>Projects</h1><p>Selected systems, tools, and experiments.</p></header>
+  <div class="filters" role="group" aria-label="Filter projects" hidden>{categories.map(category => <button type="button" data-filter={category} aria-pressed={category === 'All' ? 'true' : 'false'}>{category}</button>)}</div>
+  <p class="filter-status" aria-live="polite" aria-atomic="true">{projects.length} projects</p>
+  <div class="project-grid">{projects.map(entry => <ProjectCard entry={entry}/>)}</div>
+</BaseLayout>
+<script>
+  const filters = document.querySelector<HTMLElement>('.filters');
+  const entries = document.querySelectorAll<HTMLElement>('.project-entry');
+  const status = document.querySelector<HTMLElement>('.filter-status');
+  if (filters) filters.hidden = false;
+  filters?.querySelectorAll<HTMLButtonElement>('button').forEach(button => button.addEventListener('click', () => {
+    const category = button.dataset.filter;
+    let count = 0;
+    filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    entries.forEach(entry => { entry.hidden = category !== 'All' && entry.dataset.category !== category; if (!entry.hidden) count++; });
+    if (status) status.textContent = `${count} ${count === 1 ? 'project' : 'projects'}${category !== 'All' ? ` in ${category}` : ''}`;
+  }));
+</script>

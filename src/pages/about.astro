@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ExperienceRow from '@/components/ExperienceRow.astro';
+import EducationRow from '@/components/EducationRow.astro';
+import { experiences } from '@/data/experience';
+import { education } from '@/data/education';
+import { skills, interests } from '@/data/skills';
+import { achievements } from '@/data/achievements';
+---
+<BaseLayout title="About" description="Shubhank Chandak's professional background, complete career history, education, and technical interests.">
+  <header class="page-heading"><h1>About</h1></header>
+  <div class="about-intro"><p>I’m a software engineer with experience in capital-markets backends at Wells Fargo and compiler infrastructure at MathWorks. My work spans Java services, C++ systems, and the boundaries where data, dependencies, and reliability meet.</p><p>At the University of Florida, I’m pursuing an M.S. in Computer Science. Alongside that work, I build retrieval and agent infrastructure, with an emphasis on explicit constraints, reproducible evaluation, and inspectable failure modes.</p></div>
+  <section id="career" class="page-section"><SectionHeading title="Career history"/>{experiences.map(entry => <ExperienceRow entry={entry} expanded/>)}</section>
+  <section class="page-section"><SectionHeading title="Education"/>{education.map(entry => <EducationRow entry={entry} expanded/>)}</section>
+  <section class="page-section"><SectionHeading title="Technical toolkit"/><div class="skill-groups">{skills.map(group => <div><h3>{group.title}</h3><p>{group.items.join(' · ')}</p></div>)}</div></section>
+  <section class="page-section"><SectionHeading title="Technical interests"/><ul class="interest-list">{interests.map(interest => <li>{interest}</li>)}</ul></section>
+  {achievements.length > 0 && <section class="page-section"><SectionHeading title="Recognition"/>{achievements.map(item => <article class="achievement"><h3><a href={item.source}>{item.title} ↗</a></h3><p>{item.detail}</p></article>)}</section>}
+</BaseLayout>

@@ -1,0 +1,10 @@
+---
+import { education } from '@/data/education';
+interface Props { entry: typeof education[number]; expanded?: boolean; }
+const { entry, expanded = false } = Astro.props;
+---
+<article class="education-row">
+  <div><h3>{entry.school}</h3><p>{entry.degree}</p></div>
+  <p class="row-date">{entry.period}</p>
+  {expanded && <div class="education-details"><p>{entry.location}{entry.gpa && ` · GPA ${entry.gpa}`}</p><p>{entry.courses.join(' · ')}</p></div>}
+</article>

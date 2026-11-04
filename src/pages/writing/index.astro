@@ -1,0 +1,6 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const articles = await getCollection('writing', ({ data }) => data.published);
+---
+<BaseLayout title="Writing" description="Engineering notes on retrieval, evaluation, and building dependable systems."><header class="page-heading"><h1>Engineering notes</h1><p>Experiments, trade-offs, and what the results actually showed.</p></header><section class="page-section">{articles.length ? articles.map(entry => <a class="writing-row" href={`/writing/${entry.id}/`}><div><h2>{entry.data.title}</h2><p>{entry.data.description}</p></div><span class="entry-meta">{entry.data.date}<br/>{entry.data.category} · {entry.data.readingTime}</span></a>) : <p class="empty-state">No published notes yet.</p>}</section></BaseLayout>

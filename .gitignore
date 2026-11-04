@@ -1,5 +1,11 @@
-# Dependencies and generated Next.js output
+# Dependencies and generated output (including old Next.js caches)
 node_modules/
+.astro/
+dist/
+test-results/
+playwright-report/
+.migration/
+.qa/
 .next/
 out/
 coverage/
